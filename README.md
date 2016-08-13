@@ -30,6 +30,7 @@ I got inspired by this post (http://iosdevtips.co/post/88481653818/twitter-ios-a
         toViewController!.view.layer.mask = mask
         
         // Apply Animation
+        // Credit to iosdevtips for this animation snippet
         let keyFrameAnimation = CAKeyframeAnimation(keyPath: "bounds")
         keyFrameAnimation.delegate = self
         keyFrameAnimation.duration = 1
