@@ -6,7 +6,7 @@ I got inspired by this post (http://iosdevtips.co/post/88481653818/twitter-ios-a
 
 ### A mask is applied during the transition. The destionation UIViewController is set a mask, which is an image.
 
-![](https://raw.githubusercontent.com/dannyYassine/MaskAnimatedTransitioning/master/mask_away2.gif)
+![](https://raw.githubusercontent.com/dannyYassine/MaskAnimatedTransitioning/master/mask_away3.gif)
 
 ## Snippet
 
