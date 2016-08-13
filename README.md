@@ -4,13 +4,13 @@
 
 I got inspired by this post (http://iosdevtips.co/post/88481653818/twitter-ios-app-bird-zoom-animation) to create a custom transition between two UIViewControllers.
 
-#### A mask is applied during the transition. The destionation UIViewController is set a mask, which is an image.
+### A mask is applied during the transition. The destionation UIViewController is set a mask, which is an image.
 
 ![](https://raw.githubusercontent.com/dannyYassine/MaskAnimatedTransitioning/master/mask_away.gif)
 
-#### Snippet
+## Snippet
 
-// Context container view
+        // Context container view
         let containerView = transitionContext.containerView()!
         
         // Destination ViewController
