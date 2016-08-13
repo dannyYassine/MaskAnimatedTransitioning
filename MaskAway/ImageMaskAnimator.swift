@@ -21,20 +21,26 @@ class ImageMaskAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         
         self.transitionContext = transitionContext
         
+        // Context container view
         let containerView = transitionContext.containerView()!
-
+        
+        // Destination ViewController
         toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
         
+        // Mask
         let mask = CAShapeLayer()
         mask.contents = UIImage(named: "twitter")?.CGImage
         mask.bounds = CGRect(x: 0, y: 0, width: 100, height: 100)
         mask.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         mask.position = CGPoint(x: toViewController!.view.center.x, y: toViewController!.view.center.y)
         
+        // Add it in the context
         containerView.addSubview(toViewController!.view)
         
+        // Apply Mask
         toViewController!.view.layer.mask = mask
         
+        // Apply Animation
         let keyFrameAnimation = CAKeyframeAnimation(keyPath: "bounds")
         keyFrameAnimation.delegate = self
         keyFrameAnimation.duration = 1
