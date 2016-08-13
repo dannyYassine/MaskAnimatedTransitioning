@@ -1,20 +1,20 @@
 //
-//  ImageMaskAnimator.swift
+//  ImageMaskDismissAnimator.swift
 //  MaskAway
 //
-//  Created by Danny Yassine on 2016-08-12.
+//  Created by Danny Yassine on 2016-08-13.
 //  Copyright © 2016 DannyYassine. All rights reserved.
 //
 
 import UIKit
 
-class ImageMaskAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-    
+class ImageMaskDismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+
     weak var transitionContext: UIViewControllerContextTransitioning?
     var toViewController: UIViewController?
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 1.5
+        return 2.0
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -25,8 +25,9 @@ class ImageMaskAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let containerView = transitionContext.containerView()!
         
         // Destination ViewController
-        toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-        
+        toViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+        let viewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+
         // Mask
         let mask = CAShapeLayer()
         mask.contents = UIImage(named: "twitter")?.CGImage
@@ -35,6 +36,7 @@ class ImageMaskAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         mask.position = CGPoint(x: toViewController!.view.center.x, y: toViewController!.view.center.y)
         
         // Add it in the context
+        containerView.addSubview(viewController!.view)
         containerView.addSubview(toViewController!.view)
         
         // Apply Mask
@@ -43,6 +45,7 @@ class ImageMaskAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 //        let moveUpAnimation = CABasicAnimation(keyPath: "transform.translation.y")
 //        moveUpAnimation.duration = 0.5
 //        moveUpAnimation.toValue = NSNumber(float: 0.0)
+//        moveUpAnimation.beginTime = 0.0
 //        moveUpAnimation.fromValue = NSNumber(float: Float(mask.position.y))
 //        mask.addAnimation(moveUpAnimation, forKey: "moveUp")
         
@@ -55,7 +58,7 @@ class ImageMaskAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let firstBounds = NSValue(CGRect: mask.bounds)
         let secondBounds = NSValue(CGRect: CGRect(x: 0, y: 0, width: 90, height: 90))
         let finalBounds = NSValue(CGRect: CGRect(x: 0, y: 0, width: 2000, height: 2000))
-        keyFrameAnimation.values = [initalBounds, firstBounds, secondBounds, finalBounds]
+        keyFrameAnimation.values = [finalBounds, secondBounds, firstBounds, initalBounds]
         keyFrameAnimation.keyTimes = [0, 0.2, 0.4, 1]
         keyFrameAnimation.removedOnCompletion = false
         keyFrameAnimation.fillMode = kCAFillModeForwards
@@ -75,5 +78,7 @@ class ImageMaskAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         self.transitionContext?.completeTransition(!self.transitionContext!.transitionWasCancelled())
         toViewController?.view.layer.mask = nil
     }
+    
+
     
 }
